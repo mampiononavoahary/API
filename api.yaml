@@ -1,0 +1,93 @@
+openapi: 3.0.2
+info:
+  title: API 
+  version: '1.0'
+servers:
+  - url: https://localhost
+    description: localhost server
+paths:
+  /books:
+    get:
+      summary: Get all books ordered by id
+      operationId: getBooks
+      parameters:
+        - in: query
+          name: bookId
+          description: Filter the author's book by id
+          schema:
+            type: string
+      responses:
+        200:
+          description: The returned books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    bookName:
+                      type: string
+                    author:
+                      type: string
+                    releaseDate:
+                      type: string
+                      format: date
+    put:
+      summary: Create or update a list (hidden potential)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  bookName:
+                    type: string
+      responses:
+        200:
+          description: up to date
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    bookName:
+                      type: string
+                    author:
+                      type: string
+                    releaseDate:
+                      type: string
+                      format: date
+                
+  components:
+     schema:
+      Book:
+        type: object
+        properties:
+          id:
+            type: string
+          bookName:
+            type: string
+          author:
+            type: string
+          releaseDate:
+            type: string
+            format: date
+          topic:
+           $ref: #/components/schemas/Topic
+
+      Topic:
+        type: string
+        enum:
+          - romance
+          - comedy
